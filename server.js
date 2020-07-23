@@ -16,6 +16,15 @@ app.get('/users', function (req, res) {
     })
 })
 
+app.get('/users/:id', function (req, res) {
+    console.log(req.params.id)
+    res.json({
+        success: true,
+        message: 'got one user',
+        user: req.params.id
+    })
+})
+
 // We can now access methods used for making a server by including their name after app.
 app.listen(8000, function () {
     console.log("server is running")
