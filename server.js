@@ -3,11 +3,17 @@ const express = require('express');
 // The next creates an instance of the express constructor, which we will name "app".
 const app = express();
 
+// A POST request can send data securely through the request body. In order to make POST requests, first we need to include the "body-parser" library from our node_modules (included with express). Add these lines after the app variable:
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 
 const mockUserData = [
     {name: 'Mark'},
     {name: 'Jill'}
 ]
+
+// curl --request GET http://localhost:8000/users
 app.get('/users', function (req, res) {
     res.json({
         success: true,
@@ -16,6 +22,7 @@ app.get('/users', function (req, res) {
     })
 })
 
+// curl --request GET http://localhost:8000/users/billyTheKid
 app.get('/users/:id', function (req, res) {
     console.log(req.params.id)
     res.json({
@@ -25,6 +32,9 @@ app.get('/users/:id', function (req, res) {
     })
 })
 
+
+// Click the "Headers" tab, and enter the key: Content-Type. In the box just to the right, enter the value: application/json. This tells the server the request is going to be in JSON format.
+// curl --header "Content-Type: application/json" --request POST --data '{"username":"billyTheKid","password":"superSecret"}' http://localhost:8000/login
 app.post('/login', function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
